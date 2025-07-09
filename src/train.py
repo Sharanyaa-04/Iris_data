@@ -3,10 +3,12 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 import joblib
 
-# Load data
-df = pd.read_csv('data/heart.csv')
-X = df.drop('target', axis=1)
-y = df['target']
+# Load iris data (no headers by default)
+df = pd.read_csv('data/iris.data', header=None)
+
+# Split into features and target
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
 
 # Scale features for KNN
 scaler = StandardScaler()
@@ -20,4 +22,4 @@ knn.fit(X_scaled, y)
 joblib.dump(knn, 'model/model.pkl')
 joblib.dump(scaler, 'model/scaler.pkl')
 
-print("Heart disease KNN model trained and saved.")
+print("Iris KNN model trained and saved.")
