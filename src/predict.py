@@ -5,27 +5,18 @@ import joblib
 model = joblib.load('model/model.pkl')
 scaler = joblib.load('model/scaler.pkl')
 
-# Sample patient (modify columns to match your trained model)
+# Sample input (4 features for iris)
+# Example: SepalLength, SepalWidth, PetalLength, PetalWidth
 sample = pd.DataFrame({
-    'age': [54],
-    'sex': [1],
-    'cp': [0],
-    'trestbps': [130],
-    'chol': [250],
-    'fbs': [0],
-    'restecg': [1],
-    'thalach': [150],
-    'exang': [0],
-    'oldpeak': [1.2],
-    'slope': [1],
-    'ca': [0],
-    'thal': [2]
+    0: [5.1],  # Sepal length
+    1: [3.5],  # Sepal width
+    2: [1.4],  # Petal length
+    3: [0.2]   # Petal width
 })
 
-# Scale sample features
+# Scale sample
 sample_scaled = scaler.transform(sample)
 
 # Predict
 prediction = model.predict(sample_scaled)[0]
-risk = "At Risk" if prediction == 1 else "Low Risk"
-print(f"Prediction: {prediction} ({risk})")
+print(f"✅ Predicted Iris class: {prediction}")
